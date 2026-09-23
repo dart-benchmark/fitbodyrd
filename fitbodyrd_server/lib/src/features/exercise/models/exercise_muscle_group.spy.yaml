@@ -1,0 +1,10 @@
+enum: ExerciseMuscleGroup
+serialized: byName
+values:
+    - chest
+    - back
+    - legs
+    - arms
+    - shoulders
+    - core
+    - fullBody

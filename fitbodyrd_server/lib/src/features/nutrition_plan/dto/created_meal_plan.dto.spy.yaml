@@ -1,0 +1,9 @@
+class: CreatedMealPlanDto
+fields:
+    dayNumber: int
+    date: DateTime
+    mealsCreated: int
+    totalFoodsAdded: int
+    actualTotals: CreatedMealPlanTotalsDto
+    variance: CreatedMealPlanVarianceDto
+    mealPlanIds: List<CreatedMealPlanIdDto>

@@ -1,0 +1,14 @@
+class: FoodIntakeLog
+table: food_intake_log
+fields:
+    user: UserProfile?, relation
+    mealPlan: MealPlan?, relation(optional)
+    food: Food?, relation
+    date: DateTime
+    mealType: MealPlanType
+    servingSize: FoodServingSize?, relation(optional)
+    servingQuantity: double
+    quantityGrams: double
+    consumedAt: DateTime, default=now
+    notes: String?
+    createdAt: DateTime, default=now

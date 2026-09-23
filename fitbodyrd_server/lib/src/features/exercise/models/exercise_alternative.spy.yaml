@@ -1,0 +1,12 @@
+class: ExerciseAlternative
+table: exercise_alternatives
+fields:
+    ### The exercise that this alternative is replacing.
+    exercise: Exercise?, relation(name=exercise_this_is_alternative_to)
+    ### The alternative exercise.
+    alternativeExercise: Exercise?, relation(name=exercise_this_is_alternative_for)
+indexes:
+    ### Ensures that each exercise-alternative pair is unique.
+    unique_exercise_alternative:
+        fields: exerciseId, alternativeExerciseId
+        unique: true

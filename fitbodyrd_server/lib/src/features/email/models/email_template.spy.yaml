@@ -1,0 +1,12 @@
+class: EmailTemplate
+table: email_templates
+fields:
+    type: EmailTemplatesEnum
+    content: String
+    subject: String
+    plainTextContent: String
+indexes:
+  email_template_type_unique_idx:
+    fields: type
+    unique: true
+

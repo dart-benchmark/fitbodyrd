@@ -1,0 +1,7 @@
+### Body goals for users.
+enum: BodyGoal
+serialized: byName
+values:
+    - loseWeight
+    - maintainWeight
+    - gainMuscleMass

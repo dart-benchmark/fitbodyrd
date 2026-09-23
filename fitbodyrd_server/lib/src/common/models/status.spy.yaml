@@ -1,0 +1,6 @@
+enum: Status
+serialized: byName
+values:
+  - active
+  - completed
+  - cancelled

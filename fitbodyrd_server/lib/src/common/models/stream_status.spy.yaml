@@ -1,0 +1,6 @@
+enum: StreamStatus
+serialized: byName
+values:
+    - waiting
+    - completed
+    - error

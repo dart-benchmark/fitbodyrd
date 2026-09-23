@@ -1,0 +1,5 @@
+class: UpdateMealPlanFoodDto
+fields:
+  servingQuantity: double
+  servingSizeId: int
+  quantityGrams: double

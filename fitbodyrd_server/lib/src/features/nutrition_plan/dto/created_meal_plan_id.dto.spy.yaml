@@ -1,0 +1,4 @@
+class: CreatedMealPlanIdDto
+fields:
+    mealType: MealPlanType
+    id: int

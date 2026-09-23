@@ -1,0 +1,5 @@
+class: FoodCategoryDetailDto
+fields:
+    category: String
+    categoryId: int
+    foods: List<Food>

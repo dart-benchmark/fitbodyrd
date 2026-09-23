@@ -1,0 +1,7 @@
+class: MealIndividualDistributionDto
+fields:
+    calories: double
+    proteins: double
+    carbs: double
+    fats: double
+    percentage: double

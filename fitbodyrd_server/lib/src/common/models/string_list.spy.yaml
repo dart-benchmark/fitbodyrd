@@ -1,0 +1,3 @@
+class: StringList
+fields:
+    items: List<String>

@@ -1,0 +1,29 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "user_profiles",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "dietaryRestrictions",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": "'none'::text",
+            "dartType": "protocol:DietaryRestriction"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": []
+      }
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}

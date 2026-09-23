@@ -1,0 +1,39 @@
+class: Food
+table: foods
+fields:
+    ### Name of the food item
+    name: String
+    ### Category of the food item
+    category: FoodCategory?, relation(name=food_category, onDelete=cascade)
+    ### Caloric content per 100g
+    calories: double
+    ### Proteins in grams per 100g
+    proteins: double
+    ### Carbohydrates in grams per 100g
+    carbs: double
+    ### Fats in grams per 100g
+    fats: double
+    ### Fiber in grams per 100g
+    fiber: double
+    ### Indicates if the food item is active or deprecated
+    isActive: bool, default=true
+    ### Indicates if the food item is locally available
+    isLocal: bool, default=true
+    ### URL of the food image
+    imageUrl: String?
+    ### Brand of the food item
+    brand: String?
+    ### Barcode of the food item
+    barcode: String?
+    ### Indicates if the food item was created by a user
+    isCustom: bool, default=false
+    ### ID of the user who created the food item (if custom)
+    createdByUserId: UserProfile?, relation(optional)
+    ### Timestamp when the food item was created
+    createdAt: DateTime, default=now
+    ### Timestamp when the food item was last updated
+    updatedAt: DateTime, default=now
+    ### Micronutrients associated with the food item
+    micronutrients: List<FoodMicronutrient>?, relation(name=foodMicronutrients_food)
+    ### Serving sizes available for the food item
+    servingSizes: List<FoodServingSize>?, relation(name=foodServingSizes_food)

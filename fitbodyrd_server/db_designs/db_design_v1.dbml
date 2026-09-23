@@ -1,0 +1,303 @@
+// Tablas de Usuarios y Perfil
+Table users {
+  id integer [primary key, increment]
+  email varchar(255) [unique, not null]
+  password_hash varchar(255) [not null]
+  name varchar(100) [not null]
+  deleted_at timestamp
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+Table user_profiles {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null, unique]
+  full_name varchar(255) [not null]
+  email varchar(255) [not null]
+  birth_date timestamp [not null]
+  sex enum('M', 'F', 'Otro') [not null]
+  weightKgs decimal(5,2) [not null, note: 'Peso en kgs']
+  heightMs decimal(5,2) [not null, note: 'Altura en metros']
+  body_goal enum('loseWeight', 'maintainWeight', 'gainMuscleMass') [not null]
+  activity_level enum('sedentary', 'lightlyActive', 'moderatelyActive', 'active', 'veryActive') [not null]
+  days_per_week_exercise integer [not null]
+  time_per_exercise_session_minutes integer [not null]
+  experience_level enum('beginner', 'intermediate', 'advanced') [not null]
+  has_equipment boolean [not null]
+  dietary_restriction enum('none', 'vegetarian', 'vegan', 'keto', 'paleo', 'pescatarian') [default: 'none']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+// Preferencias alimenticias - Relación N:M con foods
+Table user_food_preferences {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  food_id integer [ref: > foods.id, not null]
+  preference_type enum('excluir', 'favorito', 'alergia', 'intolerancia') [not null]
+  notes text
+  created_at timestamp [default: `now()`]
+  
+  indexes {
+    (user_id, food_id) [unique]
+  }
+}
+
+// Categorías de alimentos
+Table food_categories {
+  id integer [primary key, increment]
+  name varchar(100) [not null, note: 'Frutas, Proteínas, Carbohidratos, etc']
+  slug varchar(100) [unique, not null, note: 'frutas, proteinas - for URLs']
+  parent_category_id integer [ref: > food_categories.id, note: 'Para jerarquía: Carnes > Pollo']
+  icon_name varchar(50) [note: 'Nombre del icono para UI']
+  color_hex varchar(7) [note: 'Color para agrupación visual: #FF6B6B']
+  display_order integer [default: 0, note: 'Orden de visualización']
+  created_at timestamp [default: `now()`]
+  
+  indexes {
+    parent_category_id
+  }
+}
+
+// Tablas de Alimentos y Nutrición
+Table foods {
+  id integer [primary key, increment]
+  name varchar(255) [not null]
+  category_id integer [ref: > food_categories.id, not null, note: 'FK a food_categories']
+  // Macronutrientes (por 100g)
+  calories decimal(7,2) [not null, note: 'Por 100g']
+  proteins decimal(6,2) [note: 'Gramos por 100g']
+  carbs decimal(6,2) [note: 'Gramos por 100g']
+  fats decimal(6,2) [note: 'Gramos por 100g']
+  fiber decimal(6,2) [note: 'Gramos por 100g']
+  // Otros detalles
+  is_active boolean [default: true, note: 'Para deprecar items sin eliminar']
+  is_local boolean [default: true, note: 'Disponible en Santiago de los Caballeros']
+  image_url varchar(500)
+  brand varchar(100) [note: 'Marca del alimento']
+  barcode varchar(50) [unique, note: 'Código de barras para escaneo']
+  is_custom boolean [default: false, note: 'Creado por el usuario']
+  created_by_user_id integer [ref: > users.id, note: 'Si es custom, quién lo creó']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  indexes {
+    category_id
+    barcode
+    is_active
+    (name) [type: "btree", note: 'Para búsqueda full-text']
+  }
+}
+
+// Tamaños de porción
+Table food_serving_sizes {
+  id integer [primary key, increment]
+  food_id integer [ref: > foods.id, not null]
+  serving_name varchar(100) [not null, note: '1 taza, 1 unidad mediana, 1 cucharada']
+  grams decimal(7,2) [not null, note: 'Conversión a gramos']
+  is_default boolean [default: false, note: 'Porción sugerida por defecto']
+  created_at timestamp [default: `now()`]
+  
+  indexes {
+    food_id
+  }
+}
+
+Table food_micronutrients {
+  id integer [primary key, increment]
+  food_id integer [ref: > foods.id, not null]
+  nutrient_name varchar(100) [not null]
+  amount decimal(8,2) [not null]
+  unit varchar(20) [not null, note: 'mg, mcg, UI, etc']
+}
+
+// Tablas de Plan Nutricional (Sugerencia editable)
+Table nutrition_plans {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  start_date date [not null]
+  end_date date [not null]
+  daily_calories integer [not null]
+  daily_proteins decimal(6,2) [not null]
+  daily_carbs decimal(6,2) [not null]
+  daily_fats decimal(6,2) [not null]
+  status enum('activo', 'completado', 'cancelado') [default: 'activo']
+  created_at timestamp [default: `now()`]
+}
+
+Table meal_plans {
+  id integer [primary key, increment]
+  nutrition_plan_id integer [ref: > nutrition_plans.id, not null]
+  date date [not null]
+  meal_type enum('desayuno', 'almuerzo', 'cena', 'snack_1', 'snack_2') [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`, note: 'Se actualiza cuando el usuario modifica el plan']
+}
+
+Table meal_plan_foods {
+  id integer [primary key, increment]
+  meal_plan_id integer [ref: > meal_plans.id, not null]
+  food_id integer [ref: > foods.id, not null]
+  quantity decimal(7,2) [not null, note: 'Gramos sugeridos o modificados por el usuario']
+  is_user_modified boolean [default: false, note: 'Indica si el usuario editó este alimento']
+  was_user_deleted boolean [default: false, note: 'Marca si el usuario eliminó este alimento del plan sugerido']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+// Registro real de ingesta (lo que realmente comió)
+Table food_intake_log {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  meal_plan_id integer [ref: > meal_plans.id, note: 'Opcional: vincula con el plan si viene de ahí']
+  food_id integer [ref: > foods.id, not null]
+  date date [not null]
+  meal_type enum('desayuno', 'almuerzo', 'cena', 'snack_1', 'snack_2') [not null]
+  // Tracking de porciones
+  serving_size_id integer [ref: > food_serving_sizes.id, note: 'Qué porción usó']
+  serving_quantity decimal(5,2) [default: 1, note: 'Cuántas porciones: 1.5 tazas, 2 manzanas']
+  quantity_grams decimal(7,2) [not null, note: 'Gramos calculados o entrada manual']
+  consumed_at timestamp [default: `now()`]
+  notes text
+  created_at timestamp [default: `now()`]
+}
+
+// Tablas de Ejercicios y Rutinas
+Table exercises {
+  id integer [primary key, increment]
+  name varchar(255) [not null]
+  description text
+  category enum('fuerza', 'cardio', 'flexibilidad', 'funcional') [not null]
+  muscle_group varchar(100) [note: 'Pecho, espalda, piernas, etc']
+  difficulty_level enum('principiante', 'intermedio', 'avanzado') [not null]
+  requires_equipment boolean [default: false]
+  equipment_needed varchar(255)
+  video_url varchar(500) [note: 'URL del video explicatorio (opcional)']
+  created_at timestamp [default: `now()`]
+}
+
+Table exercise_images {
+  id integer [primary key, increment]
+  exercise_id integer [ref: > exercises.id, not null]
+  image_url varchar(500) [not null]
+  order_index integer [default: 0, note: 'Orden de visualización']
+  created_at timestamp [default: `now()`]
+}
+
+Table exercise_alternatives {
+  id integer [primary key, increment]
+  exercise_id integer [ref: > exercises.id, not null]
+  alternative_exercise_id integer [ref: > exercises.id, not null]
+  reason varchar(255) [note: 'Sin equipo, menor dificultad, etc']
+}
+
+Table workout_plans {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  name varchar(255) [not null]
+  start_date date [not null]
+  end_date date [not null]
+  difficulty_level enum('principiante', 'intermedio', 'avanzado') [not null]
+  status enum('activo', 'completado', 'cancelado') [default: 'activo']
+  created_at timestamp [default: `now()`]
+}
+
+Table workout_sessions {
+  id integer [primary key, increment]
+  workout_plan_id integer [ref: > workout_plans.id, not null]
+  date date [not null]
+  day_name varchar(50) [note: 'Día 1, Día 2, etc']
+  focus varchar(100) [note: 'Pecho y tríceps, Piernas, etc']
+  created_at timestamp [default: `now()`]
+}
+
+Table workout_exercises {
+  id integer [primary key, increment]
+  workout_session_id integer [ref: > workout_sessions.id, not null]
+  exercise_id integer [ref: > exercises.id, not null]
+  order_index integer [not null]
+  sets integer [not null]
+  reps integer [note: 'Repeticiones planificadas']
+  rest_seconds integer [note: 'Descanso entre series']
+  notes text
+  created_at timestamp [default: `now()`]
+}
+
+Table exercise_logs {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  exercise_id integer [ref: > exercises.id, not null]
+  workout_exercise_id integer [ref: > workout_exercises.id, note: 'Opcional: vincula si viene de una rutina planificada']
+  date date [not null]
+  set_number integer [not null]
+  reps_completed integer [not null]
+  weight_used decimal(6,2) [note: 'Peso en kg']
+  difficulty_rating integer [note: '1-10']
+  notes text
+  created_at timestamp [default: `now()`]
+}
+
+// Tablas de Seguimiento de Progreso
+Table body_measurements {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  date date [not null]
+  weight decimal(5,2) [not null]
+  chest decimal(5,2) [note: 'Pecho en cm']
+  waist decimal(5,2) [note: 'Cintura en cm']
+  hips decimal(5,2) [note: 'Cadera en cm']
+  arms decimal(5,2) [note: 'Brazos en cm']
+  thighs decimal(5,2) [note: 'Muslos en cm']
+  body_fat_percentage decimal(4,2)
+  notes text
+  created_at timestamp [default: `now()`]
+}
+
+Table progress_photos {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  date date [not null]
+  photo_url varchar(500) [not null]
+  photo_type enum('frontal', 'lateral', 'posterior') [not null]
+  created_at timestamp [default: `now()`]
+}
+
+// Tablas de Notificaciones y Motivación
+Table notifications {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  type enum('motivacional', 'recordatorio', 'logro', 'reto') [not null]
+  title varchar(255) [not null]
+  message text [not null]
+  is_read boolean [default: false]
+  sent_at timestamp [default: `now()`]
+}
+
+Table weekly_challenges {
+  id integer [primary key, increment]
+  title varchar(255) [not null]
+  description text [not null]
+  challenge_type enum('nutricion', 'ejercicio', 'habito') [not null]
+  start_date date [not null]
+  end_date date [not null]
+  points integer [default: 0]
+  created_at timestamp [default: `now()`]
+}
+
+Table user_challenges {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  challenge_id integer [ref: > weekly_challenges.id, not null]
+  status enum('pendiente', 'en_progreso', 'completado', 'fallido') [default: 'pendiente']
+  progress_percentage integer [default: 0]
+  completed_at timestamp
+  created_at timestamp [default: `now()`]
+}
+
+Table achievements {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  achievement_type enum('peso', 'fuerza', 'consistencia', 'nutricion') [not null]
+  title varchar(255) [not null]
+  description text
+  earned_at timestamp [default: `now()`]
+}

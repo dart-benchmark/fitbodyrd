@@ -1,0 +1,7 @@
+enum: UserFoodPreferenceType
+serialized: byName
+values:
+    - exclude
+    - favorite
+    - allergic
+    - intolerant

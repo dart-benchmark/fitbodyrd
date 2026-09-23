@@ -1,0 +1,4 @@
+class: ExerciseImageOrder
+fields:
+    id: int
+    orderIndex: int

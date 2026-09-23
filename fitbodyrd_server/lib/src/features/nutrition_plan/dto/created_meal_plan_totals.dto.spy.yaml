@@ -1,0 +1,6 @@
+class: CreatedMealPlanTotalsDto
+fields:
+    calories: double
+    proteins: double
+    carbs: double
+    fats: double

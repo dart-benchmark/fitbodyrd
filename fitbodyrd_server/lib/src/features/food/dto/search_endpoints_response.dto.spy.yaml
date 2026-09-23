@@ -1,0 +1,4 @@
+class: SearchEndpointsResponseDto
+fields: 
+    foods: List<Food>
+    totalCount: int

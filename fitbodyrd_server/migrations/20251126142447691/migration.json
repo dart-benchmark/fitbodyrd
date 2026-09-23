@@ -1,0 +1,183 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "exercise_logs"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "exercise_logs",
+        "dartName": "ExerciseLog",
+        "module": "fitbodyrd",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('exercise_logs_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "userId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "exerciseId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "workoutExerciseId",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "date",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "setsCompleted",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "repsCompleted",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "weightUsed",
+            "columnType": 3,
+            "isNullable": true,
+            "dartType": "double?"
+          },
+          {
+            "name": "difficultyRating",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "notes",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "_workoutExercisesLogsWorkoutExercisesId",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "exercise_logs_fk_0",
+            "columns": [
+              "userId"
+            ],
+            "referenceTable": "user_profiles",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "exercise_logs_fk_1",
+            "columns": [
+              "exerciseId"
+            ],
+            "referenceTable": "exercises",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "exercise_logs_fk_2",
+            "columns": [
+              "workoutExerciseId"
+            ],
+            "referenceTable": "workout_exercises",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "exercise_logs_fk_3",
+            "columns": [
+              "_workoutExercisesLogsWorkoutExercisesId"
+            ],
+            "referenceTable": "workout_exercises",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "exercise_logs_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"setNumber\" of table \"exercise_logs\" will be dropped.",
+      "table": "exercise_logs",
+      "columns": [
+        "setNumber"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"exercise_logs\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "exercise_logs",
+      "columns": [
+        "setsCompleted"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

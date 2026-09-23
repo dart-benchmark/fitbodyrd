@@ -1,0 +1,5 @@
+class: WorkoutSessionsByDateDto
+fields:
+    date: DateTime
+    sessions: List<WorkoutSession>
+    totalExercisesCompleted: int

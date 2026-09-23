@@ -1,0 +1,7 @@
+class: MealDistributionDto
+fields:
+    breakfast: MealIndividualDistributionDto?
+    brunch: MealIndividualDistributionDto?
+    lunch: MealIndividualDistributionDto?
+    snack: MealIndividualDistributionDto?
+    dinner: MealIndividualDistributionDto?

@@ -1,0 +1,7 @@
+class: CreateWorkoutSessionDto
+fields:
+    date: DateTime
+    dayName: String
+    focus: String
+    exercises: List<CreateWorkoutExerciseDto>
+    notes: String?

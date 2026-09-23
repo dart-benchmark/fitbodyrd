@@ -1,0 +1,10 @@
+class: CreateFoodIntakeLog
+fields:
+    mealPlanId: int?
+    foodId: int
+    date: DateTime
+    mealType: MealPlanType
+    servingSizeId: int?
+    servingQuantity: double
+    quantityGrams: double
+    notes: String?

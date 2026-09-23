@@ -1,0 +1,13 @@
+class: FoodCategory
+table: food_categories
+fields:
+    name: String
+    slug: String
+    iconName: String
+    parentCategory: FoodCategory?, relation(optional, name=parent_category)
+    subCategories: List<FoodCategory>?, relation(name=parent_category)
+    colorHex: String
+    displayOrder: int, default=0
+    foods: List<Food>?, relation(name=food_category)
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

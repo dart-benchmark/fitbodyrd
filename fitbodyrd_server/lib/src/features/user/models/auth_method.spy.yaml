@@ -1,0 +1,5 @@
+enum: AuthMethod
+serialized: byName
+values:
+  - email
+  - google

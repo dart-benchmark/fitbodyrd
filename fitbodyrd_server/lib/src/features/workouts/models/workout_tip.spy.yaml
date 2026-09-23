@@ -1,0 +1,9 @@
+class: WorkoutTip
+table: workout_tips
+fields:
+  content: String
+  order: int
+indexes:
+  workout_tip_order_unique_idx:
+    fields: order
+    unique: true

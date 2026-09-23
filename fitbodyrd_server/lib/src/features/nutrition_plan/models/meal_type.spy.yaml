@@ -1,0 +1,8 @@
+enum: MealPlanType
+serialized: byName
+values:
+  - breakfast
+  - brunch
+  - lunch
+  - snack
+  - dinner

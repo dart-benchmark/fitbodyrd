@@ -1,0 +1,25 @@
+class: Exercise
+table: exercises
+fields:
+    name: String
+    description: String?
+    category: List<ExerciseCategory>
+    muscleGroup: List<ExerciseMuscleGroup>
+    difficulty: ExerciseDifficulty
+    ### Indicates if the exercise requires any equipment.
+    requiresEquipment: bool, default=false
+    ### Description of the equipment needed, if any.
+    equipmentNeeded: String?
+    videoUrl: String?
+    images: List<ExerciseImage>?, relation(name=exercise_images)
+    ### Exercises that can be used as alternatives to this exercise.
+    alternatives: List<ExerciseAlternative>?, relation(name=exercise_this_is_alternative_to)
+    ### Exercises for which this exercise is an alternative.
+    alternativesFor: List<ExerciseAlternative>?, relation(name=exercise_this_is_alternative_for), scope=serverOnly
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now
+indexes:
+    ### Ensures that each exercise name is unique.
+    unique_exercise_name:
+        fields: name
+        unique: true

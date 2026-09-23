@@ -1,0 +1,7 @@
+exception: AppException
+fields:
+    module: String
+    message: String
+    errorCode: int
+    httpStatus: int
+    details: String?

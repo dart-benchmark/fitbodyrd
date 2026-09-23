@@ -1,0 +1,15 @@
+class: NutritionPlan
+table: nutrition_plans
+fields:
+    userProfile: UserProfile?, relation
+    startDate: DateTime
+    endDate: DateTime
+    dailyCalories: double
+    dailyProteins: double
+    dailyCarbs: double
+    dailyFats: double
+    status: Status
+    notes: String?
+    mealPlans: List<MealPlan>?, relation(name=nutritionPlanMealPlans)
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

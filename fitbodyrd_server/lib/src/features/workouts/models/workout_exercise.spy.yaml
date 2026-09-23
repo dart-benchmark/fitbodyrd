@@ -1,0 +1,12 @@
+class: WorkoutExercise
+table: workout_exercises
+fields:
+    workoutSession: WorkoutSession?, relation(name=workoutSessionExercises)
+    exercise: Exercise?, relation
+    order: int
+    sets: int
+    reps: int
+    restSeconds: int
+    notes: String?
+    logs: List<ExerciseLog>?, relation
+    createdAt: DateTime, default=now

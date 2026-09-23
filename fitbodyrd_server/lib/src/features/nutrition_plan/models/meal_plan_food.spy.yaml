@@ -1,0 +1,14 @@
+class: MealPlanFood
+table: meal_plan_foods
+fields:
+    mealPlan: MealPlan?, relation(name=mealPlanFoods)
+    food: Food?, relation
+    servingSize: FoodServingSize?, relation
+    servingQuantity: double
+    quantityGrams: double
+    isUserModified: bool, default=false
+    wasUserDeleted: bool, default=false
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now
+    deletedAt: DateTime?
+    deletedBy: UserProfile?, relation(optional)

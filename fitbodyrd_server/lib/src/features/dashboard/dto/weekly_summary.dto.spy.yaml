@@ -1,0 +1,9 @@
+class: WeeklySummaryDto
+fields:
+    workoutsCompleted: int
+    workoutsScheduled: int
+    nutritionDaysLogged: int
+    totalExercisesLogged: int
+    totalMealsLogged: int
+    weekStartDate: DateTime
+    weekEndDate: DateTime

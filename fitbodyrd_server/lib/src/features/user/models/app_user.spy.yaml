@@ -1,0 +1,43 @@
+### Basic user profile information.
+class: UserProfile
+table: user_profiles
+fields:
+    ### Reference to the associated user information.
+    userInfo: module:auth:UserInfo?, relation
+    ### The user's full name.
+    fullName: String
+    ### The user's email address.
+    email: String
+    ### The user's date of birth.
+    birthDate: DateTime
+    ### The user's age.
+    age: int?, !persist
+    ### The user's sex.
+    sex: Sex
+    ### The user's weight in kgs.
+    weightKgs: double
+    ### The user's height in meters.
+    heightMs: double
+    ### The user's BMI (Body Mass Index).
+    bmi: double?, !persist
+    ### The user's weight category.
+    weightCategory: WeightCategory?, !persist
+    ### The user's goal regarding their body.
+    bodyGoal: BodyGoal
+    ### The user's activity level.
+    activityLevel: ActivityLevel
+    ### Number of days per week the user plans to exercise.
+    daysPerWeekExercise: int
+    ### Time in minutes the user plans to spend per exercise session.
+    timePerExerciseSessionMinutes: int
+    ### The user's experience level with exercise.
+    experienceLevel: ExerciseDifficulty
+    ### Auth method used by the user.
+    authMethod: AuthMethod?, default=google
+    ### Whether the user has equipment for exercising.
+    hasEquipment: bool, default=true
+    ### Dietary restrictions of the user.
+    dietaryRestrictions: DietaryRestriction, default=none
+    deletedAt: DateTime?
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

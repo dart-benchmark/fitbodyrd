@@ -1,0 +1,315 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "meal_plan_foods"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "meal_plan_foods",
+        "dartName": "MealPlanFood",
+        "module": "fitbodyrd",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('meal_plan_foods_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "mealPlanId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "foodId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "servingSizeId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "servingQuantity",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "quantityGrams",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "isUserModified",
+            "columnType": 1,
+            "isNullable": false,
+            "columnDefault": "false",
+            "dartType": "bool"
+          },
+          {
+            "name": "wasUserDeleted",
+            "columnType": 1,
+            "isNullable": false,
+            "columnDefault": "false",
+            "dartType": "bool"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "updatedAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "deletedAt",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "deletedById",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "meal_plan_foods_fk_0",
+            "columns": [
+              "mealPlanId"
+            ],
+            "referenceTable": "meal_plans",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "meal_plan_foods_fk_1",
+            "columns": [
+              "foodId"
+            ],
+            "referenceTable": "foods",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "meal_plan_foods_fk_2",
+            "columns": [
+              "servingSizeId"
+            ],
+            "referenceTable": "food_serving_sizes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "meal_plan_foods_fk_3",
+            "columns": [
+              "deletedById"
+            ],
+            "referenceTable": "user_profiles",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "meal_plan_foods_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "meal_plans"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "meal_plans",
+        "dartName": "MealPlan",
+        "module": "fitbodyrd",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('meal_plans_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "nutritionPlanId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "date",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "dayNumber",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "mealType",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:MealPlanType"
+          },
+          {
+            "name": "targetCalories",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "targetProteins",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "targetCarbs",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "targetFats",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "notes",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "updatedAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "meal_plans_fk_0",
+            "columns": [
+              "nutritionPlanId"
+            ],
+            "referenceTable": "nutrition_plans",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "meal_plans_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"quantity\" of table \"meal_plan_foods\" will be dropped.",
+      "table": "meal_plan_foods",
+      "columns": [
+        "quantity"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"meal_plan_foods\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "meal_plan_foods",
+      "columns": [
+        "servingQuantity"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"meal_plans\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "meal_plans",
+      "columns": [
+        "dayNumber"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

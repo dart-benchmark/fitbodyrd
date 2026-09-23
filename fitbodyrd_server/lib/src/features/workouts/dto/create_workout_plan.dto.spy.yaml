@@ -1,0 +1,8 @@
+class: CreateWorkoutPlanDto
+fields:
+    userId: int
+    name: String
+    startDate: DateTime
+    endDate: DateTime
+    difficultyLevel: ExerciseDifficulty
+    sessions: List<CreateWorkoutSessionDto>?

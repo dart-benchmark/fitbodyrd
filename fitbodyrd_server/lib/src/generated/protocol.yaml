@@ -1,0 +1,73 @@
+dashboard:
+  - getWeeklySummary:
+exercise:
+  - getAllExercises:
+  - getExerciseById:
+  - createExercise:
+  - updateExercise:
+  - deleteExercise:
+  - getExerciseImages:
+  - addExerciseImage:
+  - deleteExerciseImage:
+  - reorderImages:
+  - getAllExerciseNames:
+  - searchExercises:
+food:
+  - getAllFoodCategories:
+  - getParentFoodCategories:
+  - getFoodCategoryById:
+  - createFoodCategory:
+  - updateFoodCategory:
+  - deleteFoodCategory:
+  - getFoods:
+  - getFoodById:
+  - createFood:
+  - updateFood:
+  - deleteFood:
+  - createFoodServingSize:
+  - updateFoodServingSize:
+  - deleteFoodServingSize:
+  - createFoodMicronutrient:
+  - updateFoodMicronutrient:
+  - deleteFoodMicronutrient:
+  - searchFoods:
+  - searchFoodsV2:
+  - getFoodCatalogue:
+foodIntakeLog:
+  - create:
+  - delete:
+  - getByDate:
+nutrition:
+  - calculateMacros:
+nutritionPlan:
+  - createNutritionPlan:
+  - getNutritionPlanById:
+  - createMealPlan:
+  - updateNutritionPlanProgress:
+  - requestNutritionPlanGeneration:
+  - notifyErrorCreatingNutritionPlan:
+  - getActiveNutritionPlan:
+  - updateMealPlanFood:
+  - deleteMealPlanFood:
+  - addMealPlanFood:
+adminUser:
+  - findUserProfile:
+  - getUserFoodPreferences:
+user:
+  - getCurrentUserProfile:
+  - createUserProfile:
+  - setAuthMethod:
+workout:
+  - getActiveWorkoutPlan:
+  - getExerciseLogs:
+  - deleteExerciseLog:
+  - createBaseWorkoutPlan:
+  - createWorkoutSession:
+  - createWorkoutPlan:
+  - notifyErrorCreatingWorkoutPlan:
+  - requestWorkoutPlanGeneration:
+  - listenToWorkoutTips:
+  - logWorkoutExercise:
+  - getWorkoutHistory:
+  - getWorkoutProgressMetrics:
+  - getWorkoutSessionsByDateRange:

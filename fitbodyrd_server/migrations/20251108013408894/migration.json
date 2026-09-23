@@ -1,0 +1,43 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "user_profiles",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "bmi"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"bmi\" of table \"user_profiles\" will be dropped.",
+            "table": "user_profiles",
+            "columns": [
+              "bmi"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"bmi\" of table \"user_profiles\" will be dropped.",
+      "table": "user_profiles",
+      "columns": [
+        "bmi"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

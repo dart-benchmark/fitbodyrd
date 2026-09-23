@@ -1,0 +1,140 @@
+name: Build and Release APK
+
+on:
+  push:
+    branches: ["main", "dev"]
+    paths:
+      - "fitbodyrd_flutter/**"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version from pubspec.yaml
+        id: extract_version
+        working-directory: fitbodyrd_flutter
+        run: |
+          VERSION=$(grep -E "^version:" pubspec.yaml | sed 's/version: //' | tr -d ' ')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+          # Normalize version for comparison (remove +build number for comparison)
+          VERSION_BASE=$(echo $VERSION | cut -d'+' -f1)
+          echo "VERSION_BASE=$VERSION_BASE" >> $GITHUB_OUTPUT
+
+      - name: Get latest release version
+        id: latest_release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const { data: releases } = await github.rest.repos.listReleases({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 1
+              });
+              
+              if (releases.length === 0) {
+                console.log('No releases found');
+                return '';
+              }
+              
+              const latestTag = releases[0].tag_name;
+              console.log(`Latest release tag: ${latestTag}`);
+              // Remove 'v' prefix if present and extract base version
+              const tagVersion = latestTag.replace(/^v/, '').split('+')[0];
+              return tagVersion;
+            } catch (error) {
+              console.log('Error fetching releases:', error.message);
+              return '';
+            }
+
+      - name: Compare versions
+        id: compare_versions
+        run: |
+          CURRENT_VERSION="${{ steps.extract_version.outputs.VERSION_BASE }}"
+          LATEST_VERSION="${{ steps.latest_release.outputs.result }}"
+          
+          echo "Current version: $CURRENT_VERSION"
+          echo "Latest release version: $LATEST_VERSION"
+          
+          if [ -z "$LATEST_VERSION" ]; then
+            echo "No previous release found, proceeding with build"
+            echo "should_build=true" >> $GITHUB_OUTPUT
+          elif [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+            echo "Version changed, proceeding with build"
+            echo "should_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version unchanged, skipping build"
+            echo "should_build=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Flutter
+        if: steps.compare_versions.outputs.should_build == 'true'
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Write app_env.g.dart from secret
+        if: steps.compare_versions.outputs.should_build == 'true'
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "app_env.g.dart"
+          fileDir: "fitbodyrd_flutter/lib/src/core/env"
+          encodedString: ${{ secrets.APP_ENV_G_DART_BASE64 }}
+
+      - name: Cache pub dependencies
+        if: steps.compare_versions.outputs.should_build == 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            fitbodyrd_flutter/.dart_tool
+            fitbodyrd_flutter/pubspec.lock
+            fitbodyrd_client/.dart_tool
+            fitbodyrd_client/pubspec.lock
+          key: ${{ runner.os }}-pub-${{ hashFiles('fitbodyrd_flutter/pubspec.lock', 'fitbodyrd_client/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      - name: Install dependencies
+        if: steps.compare_versions.outputs.should_build == 'true'
+        working-directory: fitbodyrd_flutter
+        run: flutter pub get
+
+      - name: Build APK
+        if: steps.compare_versions.outputs.should_build == 'true'
+        working-directory: fitbodyrd_flutter
+        run: flutter build apk --release
+
+      - name: Rename APK with version
+        if: steps.compare_versions.outputs.should_build == 'true'
+        working-directory: fitbodyrd_flutter
+        run: |
+          cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-v${{ steps.extract_version.outputs.VERSION }}.apk
+
+      - name: Create Release
+        if: steps.compare_versions.outputs.should_build == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.extract_version.outputs.VERSION }}
+          name: Release v${{ steps.extract_version.outputs.VERSION }}
+          body: |
+            APK build for version ${{ steps.extract_version.outputs.VERSION }}
+            
+            **Download:** See assets below
+          files: |
+            fitbodyrd_flutter/build/app/outputs/flutter-apk/app-v${{ steps.extract_version.outputs.VERSION }}.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

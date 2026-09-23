@@ -1,0 +1,8 @@
+enum: ExerciseCategory
+serialized: byName
+values:
+    - cardio
+    - strength
+    - flexibility
+    - balance
+    - calisthenics

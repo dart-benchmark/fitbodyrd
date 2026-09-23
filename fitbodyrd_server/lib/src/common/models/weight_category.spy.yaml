@@ -1,0 +1,7 @@
+enum: WeightCategory
+serialized: byName
+values:
+    - underweight
+    - normal
+    - overweight
+    - obese

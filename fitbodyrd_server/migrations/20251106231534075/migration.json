@@ -1,0 +1,51 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "workout_plans",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "status",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": "'active'::text",
+            "dartType": "protocol:Status"
+          }
+        ],
+        "deleteColumns": [
+          "status"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column status of table workout_plans is modified in a way that it must be deleted and recreated.",
+            "table": "workout_plans",
+            "columns": [
+              "status"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column status of table workout_plans is modified in a way that it must be deleted and recreated.",
+      "table": "workout_plans",
+      "columns": [
+        "status"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

@@ -1,0 +1,9 @@
+enum: DietaryRestriction
+serialized: byName
+values:
+    - none
+    - vegetarian
+    - vegan
+    - keto
+    - paleo
+    - pescatarian

@@ -1,0 +1,10 @@
+class: FoodMicronutrient
+table: food_micronutrients
+fields:
+    ### The food item associated with these micronutrients.
+    food: Food?, relation(name=foodMicronutrients_food, onDelete=cascade)
+    name: String
+    amount: double
+    unit: String
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

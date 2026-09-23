@@ -1,0 +1,9 @@
+class: UserFoodPreference
+table: user_food_preferences
+fields:
+    userProfile: UserProfile?, relation(onDelete=cascade)
+    food: Food?, relation(onDelete=cascade)
+    preferenceType: UserFoodPreferenceType
+    note: String?
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

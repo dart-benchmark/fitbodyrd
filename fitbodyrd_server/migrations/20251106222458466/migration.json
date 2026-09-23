@@ -1,0 +1,172 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "user_profiles"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "user_profiles",
+        "dartName": "UserProfile",
+        "module": "fitbodyrd",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('user_profiles_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "fullName",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "email",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "birthDate",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "sex",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:Sex"
+          },
+          {
+            "name": "weightLbs",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "heightInches",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "bmi",
+            "columnType": 3,
+            "isNullable": true,
+            "dartType": "double?"
+          },
+          {
+            "name": "bodyGoal",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:BodyGoal"
+          },
+          {
+            "name": "activityLevel",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:ActivityLevel"
+          },
+          {
+            "name": "daysPerWeekExercise",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "timePerExerciseSessionMinutes",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "experienceLevel",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:ExerciseDifficulty"
+          },
+          {
+            "name": "authMethod",
+            "columnType": 0,
+            "isNullable": true,
+            "columnDefault": "'google'::text",
+            "dartType": "protocol:AuthMethod?"
+          },
+          {
+            "name": "hasEquipment",
+            "columnType": 1,
+            "isNullable": false,
+            "columnDefault": "true",
+            "dartType": "bool"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "updatedAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "user_profiles_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"weight\" of table \"user_profiles\" will be dropped.",
+      "table": "user_profiles",
+      "columns": [
+        "weight"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"height\" of table \"user_profiles\" will be dropped.",
+      "table": "user_profiles",
+      "columns": [
+        "height"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"user_profiles\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "user_profiles",
+      "columns": [
+        "fullName"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

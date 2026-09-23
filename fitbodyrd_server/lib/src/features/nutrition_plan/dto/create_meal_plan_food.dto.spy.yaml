@@ -1,0 +1,10 @@
+class: CreateMealPlanFoodDto
+fields:
+    foodId: int
+    servingSizeId: int
+    servingQuantity: double
+    quantityGrams: double
+    calories: double
+    proteins: double
+    carbs: double
+    fats: double

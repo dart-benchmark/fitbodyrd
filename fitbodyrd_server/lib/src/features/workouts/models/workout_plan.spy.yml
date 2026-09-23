@@ -1,0 +1,13 @@
+class: WorkoutPlan
+table: workout_plans
+fields:
+  user: UserProfile?, relation
+  name: String
+  startDate: DateTime
+  endDate: DateTime
+  difficultyLevel: ExerciseDifficulty
+  sessions: List<WorkoutSession>?, relation(name=workoutPlanSessions)
+  sessionsCount: int, default=0
+  status: Status, default=active
+  createdAt: DateTime, default=now
+  updatedAt: DateTime, default=now

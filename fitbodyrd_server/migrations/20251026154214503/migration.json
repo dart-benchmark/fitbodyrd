@@ -1,0 +1,147 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "exercises"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "exercises",
+        "dartName": "Exercise",
+        "module": "fitbodyrd",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('exercises_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "name",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "description",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          },
+          {
+            "name": "category",
+            "columnType": 8,
+            "isNullable": false,
+            "dartType": "List<protocol:ExerciseCategory>"
+          },
+          {
+            "name": "muscleGroup",
+            "columnType": 8,
+            "isNullable": false,
+            "dartType": "List<protocol:ExerciseMuscleGroup>"
+          },
+          {
+            "name": "difficulty",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:ExerciseDifficulty"
+          },
+          {
+            "name": "requiresEquipment",
+            "columnType": 1,
+            "isNullable": false,
+            "columnDefault": "false",
+            "dartType": "bool"
+          },
+          {
+            "name": "equipmentNeeded",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          },
+          {
+            "name": "videoUrl",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "updatedAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "exercises_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "unique_exercise_name",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "name"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column category of table exercises is modified in a way that it must be deleted and recreated.",
+      "table": "exercises",
+      "columns": [
+        "category"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column muscleGroup of table exercises is modified in a way that it must be deleted and recreated.",
+      "table": "exercises",
+      "columns": [
+        "muscleGroup"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"exercises\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "exercises",
+      "columns": [
+        "category"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

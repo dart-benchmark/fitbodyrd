@@ -1,0 +1,8 @@
+class: CreateMealPlanDetailDto
+fields:
+    mealType: MealPlanType
+    targetCalories: double
+    targetProteins: double
+    targetCarbs: double
+    targetFats: double
+    foods: List<CreateMealPlanFoodDto>

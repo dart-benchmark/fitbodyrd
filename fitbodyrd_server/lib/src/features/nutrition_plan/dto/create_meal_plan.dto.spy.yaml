@@ -1,0 +1,6 @@
+class: CreateMealPlanDto
+fields:
+    nutritionPlanId: int
+    date: DateTime
+    dayNumber: int
+    meals: List<CreateMealPlanDetailDto>

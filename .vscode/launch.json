@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "fitbodyrd_client",
+            "cwd": "fitbodyrd_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fitbodyrd_flutter",
+            "cwd": "fitbodyrd_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fitbodyrd_flutter (profile mode)",
+            "cwd": "fitbodyrd_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fitbodyrd_flutter (release mode)",
+            "cwd": "fitbodyrd_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "fitbodyrd_server",
+            "cwd": "fitbodyrd_server",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

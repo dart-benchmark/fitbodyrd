@@ -1,0 +1,9 @@
+class: GenerateWorkoutPlanProgressDto
+fields:
+    success: bool
+    progressPercentage: double
+    currentDay: int
+    totalDays: int
+    status: StreamStatus
+    message: String
+    updatedAt: DateTime

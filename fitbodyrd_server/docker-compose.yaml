@@ -1,0 +1,44 @@
+services:
+  # Development services
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: fitbodyrd
+      POSTGRES_PASSWORD: "ZlO_yPYs5mPS5w7TsNMnRTfEY8tSLmld"
+    volumes:
+      - fitbodyrd_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "8091:6379"
+    command: redis-server --requirepass "wR18oduurZC69kbtfVNAHrQ68R6fzAba"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+  # Test services
+  postgres_test:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: fitbodyrd_test
+      POSTGRES_PASSWORD: "3lVHETIWPQretUkzjLGJBmU4T3R2O_lT"
+    volumes:
+      - fitbodyrd_test_data:/var/lib/postgresql/data
+
+  redis_test:
+    image: redis:6.2.6
+    ports:
+      - "9091:6379"
+    command: redis-server --requirepass "KxTLx8auaYuWS7ueOSaI3J9Zv5fvx6O4"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+volumes:
+  fitbodyrd_data:
+  fitbodyrd_test_data:

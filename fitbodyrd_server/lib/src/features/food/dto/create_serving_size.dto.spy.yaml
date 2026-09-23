@@ -1,0 +1,5 @@
+class: CreateServingSizeDto
+fields:
+    name: String
+    grams: double
+    isDefault: bool

@@ -1,0 +1,13 @@
+class: ExerciseLog
+table: exercise_logs
+fields:
+  user: UserProfile?, relation
+  exerciseId: int, relation(parent=exercises)
+  workoutExerciseId: int?, relation(parent=workout_exercises)
+  date: DateTime
+  setsCompleted: int
+  repsCompleted: int
+  weightUsed: double?
+  difficultyRating: int?
+  notes: String?
+  createdAt: DateTime, default=now

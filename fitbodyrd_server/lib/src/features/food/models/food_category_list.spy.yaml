@@ -1,0 +1,3 @@
+class: FoodCategoryList
+fields:
+  categories: List<FoodCategory>

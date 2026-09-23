@@ -1,0 +1,12 @@
+class: WorkoutSession
+table: workout_sessions
+fields:
+    workoutPlan: WorkoutPlan?, relation(name=workoutPlanSessions)
+    date: DateTime
+    dayName: String
+    focus: String
+    exercises: List<WorkoutExercise>?, relation(name=workoutSessionExercises)
+    notes: String?
+    sessionComplete: bool, default=false
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

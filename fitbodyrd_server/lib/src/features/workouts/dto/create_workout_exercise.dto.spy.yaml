@@ -1,0 +1,8 @@
+class: CreateWorkoutExerciseDto
+fields:
+    exerciseId: int
+    order: int
+    sets: int
+    reps: int
+    restSeconds: int
+    notes: String?

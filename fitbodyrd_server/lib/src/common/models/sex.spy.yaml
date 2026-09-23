@@ -1,0 +1,7 @@
+### Sex of users.
+enum: Sex
+serialized: byName
+values:
+    - male
+    - female
+    - other

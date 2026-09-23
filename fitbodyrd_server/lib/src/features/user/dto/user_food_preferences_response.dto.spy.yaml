@@ -1,0 +1,7 @@
+class: UserFoodPreferencesResponseDto
+fields: 
+    preferences: List<UserFoodPreference>
+    excludedFoodIds: List<int>
+    favoriteFoodIds: List<int>
+    allergyFoodIds: List<int>
+    intoleranceFoodIds: List<int>

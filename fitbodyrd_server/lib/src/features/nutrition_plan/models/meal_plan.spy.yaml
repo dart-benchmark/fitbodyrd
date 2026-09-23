@@ -1,0 +1,15 @@
+class: MealPlan
+table: meal_plans
+fields:
+    nutritionPlan: NutritionPlan?, relation(name=nutritionPlanMealPlans)
+    date: DateTime
+    dayNumber: int
+    mealType: MealPlanType
+    targetCalories: double
+    targetProteins: double
+    targetCarbs: double
+    targetFats: double
+    notes: String?
+    mealPlanFoods: List<MealPlanFood>?, relation(name=mealPlanFoods)
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now

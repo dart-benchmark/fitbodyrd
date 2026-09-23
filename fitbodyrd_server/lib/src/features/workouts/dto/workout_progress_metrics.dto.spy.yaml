@@ -1,0 +1,9 @@
+class: WorkoutProgressMetricsDto
+fields:
+    totalWorkoutsCompleted: int
+    currentStreak: int
+    longestStreak: int
+    averageWorkoutsPerWeek: double
+    totalExercisesLogged: int
+    workoutsThisWeek: int
+    workoutsThisMonth: int

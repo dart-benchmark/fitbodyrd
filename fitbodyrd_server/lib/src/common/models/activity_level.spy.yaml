@@ -1,0 +1,9 @@
+### Activity levels for users.
+enum: ActivityLevel
+serialized: byName
+values:
+    - sedentary
+    - lightlyActive
+    - moderatelyActive
+    - active
+    - veryActive

@@ -1,0 +1,14 @@
+class: MacrosResponseDto
+fields:
+    bmr: double
+    tdee: double
+    targetCalories: double
+    caloricAdjustment: double
+    dailyProteins: double
+    dailyCarbs: double
+    dailyFats: double
+    proteinPercentage: double
+    carbsPercentage: double
+    fatsPercentage: double
+    proteinGramsPerKg: double
+    mealDistribution: MealDistributionDto

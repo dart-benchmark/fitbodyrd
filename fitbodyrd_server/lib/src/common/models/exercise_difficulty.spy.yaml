@@ -1,0 +1,6 @@
+enum: ExerciseDifficulty
+serialized: byName
+values:
+    - beginner
+    - intermediate
+    - advanced

@@ -1,0 +1,8 @@
+class: ExerciseImage
+table: exercise_images
+fields:
+    exercise: Exercise?, relation(name=exercise_images)
+    imageUrl: String
+    ### Order index for sorting images. Lower values appear first.
+    orderIndex: int, default=0
+    createdAt: DateTime, default=now

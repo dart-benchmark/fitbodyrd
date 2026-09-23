@@ -1,0 +1,9 @@
+class: FoodServingSize
+table: food_serving_sizes
+fields:
+    food: Food?, relation(name=foodServingSizes_food, onDelete=cascade)
+    name: String
+    grams: double
+    isDefault: bool, default=false
+    createdAt: DateTime, default=now
+    updatedAt: DateTime, default=now
