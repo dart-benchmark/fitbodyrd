@@ -1,6 +1,6 @@
 fitbodyrd_server/config/output.txt
 .vscode/settings.json
 fitbodyrd_flutter/.env
-fitbodyrd_flutter/lib/src/core/env/app_env.g.dart
+# app_env.g.dart is tracked (generated from placeholder values) so the app compiles without a .env
 fitbodyrd_server/config/google_client_secret.json
 fitbodyrd_flutter/ios/Runner/GoogleService-Info.plist
